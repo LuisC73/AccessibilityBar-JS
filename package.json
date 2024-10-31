@@ -1,0 +1,22 @@
+{
+  "name": "screenreader",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/LuisC73/ScreenReader-JS.git"
+  },
+  "keywords": [
+    "ScreenReader"
+  ],
+  "author": "Miguel Castro",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LuisC73/ScreenReader-JS/issues"
+  },
+  "homepage": "https://github.com/LuisC73/ScreenReader-JS#readme",
+  "description": ""
+}
