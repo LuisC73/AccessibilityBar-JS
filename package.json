@@ -1,5 +1,5 @@
 {
-  "name": "screenreader",
+  "name": "screen-reader-js",
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
@@ -7,10 +7,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/LuisC73/ScreenReader-JS.git"
+    "url": "https://github.com/LuisC73/ScreenReader-JS"
   },
   "keywords": [
-    "ScreenReader"
+    "ScreenReader",
+    "JavaScript"
   ],
   "author": "Miguel Castro",
   "license": "ISC",

@@ -47,14 +47,8 @@ const returnText = (e) => {
   }
 };
 
-const handleClickOpenBar = (container) => {
-  container.classList.toggle('active');
-};
-
-const handleMouseHover = (container, audio) => {
-  const audioElement = createElement('audio', ['screen-reader__audio'], {
-    src: audio
-  });
+const handleClickOpenBar = () => {
+  screenReader.classList.toggle('active');
 };
 
 const speechUtterance = (action = 'create') => {
@@ -156,6 +150,7 @@ const restartState = () => {
 
 const handleClickAction = (id) => {
   const actions = Object.freeze({
+    'toggle-bar': handleClickOpenBar,
     'narrator': speechUtterance,
     'increase_text': () => changeFontSize('increase'),
     'decrease_text': () => changeFontSize('decrease'),
@@ -185,7 +180,7 @@ const createElement = (tag, classes = [], attributes = {}, textContent = '') => 
 
 const createDesign = (container, options) => {
   container.classList.add('screen-reader');
-  const imageContainer = createElement('div', ['screen-reader__image-container']);
+  const imageContainer = createElement('div', ['screen-reader__image-container'], { id: 'toggle-bar' });
   const image = createElement('img', ['screen-reader__image'], {
     src: `${assetsDir}/icons/logo.svg`,
     alt: 'Botón para abrir barra de accesibilidad'
@@ -201,9 +196,11 @@ const createDesign = (container, options) => {
     const newOptions = options.filter(option => option?.id !== 'relay_centre');
 
     newOptions.forEach(option => {
-      const liElement = createElement('li', ['screen-reader__li'], { id: option?.id });
+      const liElement = createElement('li', ['screen-reader__li']);
+      const buttonElement = createElement('button', ['screen-reader__button'], { id: option?.id });
       const spanElement = createElement('span', ['screen-reader__span', `screen-reader__span--${option?.icon}`]);
-      liElement.append(spanElement, option?.label);
+      buttonElement.append(spanElement, option?.label);
+      liElement.appendChild(buttonElement);
       fragmentOptions.appendChild(liElement);
     });
 
@@ -228,3 +225,4 @@ const createDesign = (container, options) => {
 createDesign(screenReader, options);
 
 screenReader.addEventListener('click', (e) => handleClickAction(e.target.id));
+screenReader.addEventListener('keypress', (e) => e.key === 'enter' && handleClickAction(e.target.id));

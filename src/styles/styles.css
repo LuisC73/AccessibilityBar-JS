@@ -12,7 +12,13 @@
   bottom: calc(100vh - 25vh);
   display: grid;
   grid-template-columns: 60px 220px;
+  transition: 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transform: translateX(82%);
   z-index: 999;
+}
+
+.screen-reader.active {
+  transform: translateX(0);
 }
 
 .screen-reader * {
@@ -40,6 +46,12 @@
 
 .screen-reader__image-container:hover > .screen-reader__image {
   transform: rotate(360deg);
+}
+
+.screen-reader__audio {
+  opacity: 0;
+  pointer-events: none;
+
 }
 
 .screen-reader__content {
@@ -75,6 +87,11 @@
   align-items: center;
   gap: 4px;
   list-style: none;
+}
+
+.screen-reader__button {
+  border: none;
+  background: none;
   font-size: 0.8rem;
   font-family: 'Work Sans', sans-serif;
   color: var(--tertiary-color);
@@ -83,10 +100,13 @@
 }
 
 .screen-reader__a {
+  font-size: 0.8rem;
+  font-family: 'Work Sans', sans-serif;
   color: var(--tertiary-color);
+  transition: all 0.2s ease-in;
 }
 
-.screen-reader__li:hover {
+.screen-reader__button:hover {
   color: var(--primary-color);
   text-decoration: underline;
 }
@@ -110,7 +130,7 @@
 }
 
 .font-dyslexic {
-  font-family: 'OpenDyslexic', sans-serif;
+  font-family: 'OpenDyslexic', sans-serif !important;
 }
 
 /* Cursor grande */
@@ -125,7 +145,8 @@
 }
 
 /* Resaltar enlaces */
-.highlight-links {
+.highlight-links a {
+  font-weight: bold;
   text-decoration: underline !important;
 }
 

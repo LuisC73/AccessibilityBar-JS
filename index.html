@@ -12,28 +12,68 @@
   <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet">
 
-  <link rel="stylesheet" href="src/styles.css">
+  <link rel="stylesheet" href="src/styles/global.css">
+
+  <link rel="stylesheet" href="src/styles/styles.css">
 </head>
 
 <body>
   <div id="root">
-    <header></header>
+    <header>
+      Barra de accesibilidad
+    </header>
     <main>
       <section>
         <h1>Barra de Accesibilidad - JavaScript</h1>
         <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Himenaeos sit pharetra justo tempus potenti praesent. Et sed pretium dis tincidunt volutpat augue primis. Mattis class class himenaeos donec conubia etiam viverra. Torquent aliquam vehicula semper justo consectetur. Fermentum magnis maecenas porta et netus purus. Fermentum mi sodales lorem faucibus inceptos semper habitasse penatibus. Nullam taciti aliquam vulputate lacinia montes porttitor dictum. Donec curabitur ultrices suscipit sagittis platea duis sapien.</p>
       </section>
       <section>
-        <h2>Barra de Accesibilidad - JavaScript</h2>
+        <h2>Imágenes</h2>
         <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Himenaeos sit pharetra justo tempus potenti praesent. Et sed pretium dis tincidunt volutpat augue primis. Mattis class class himenaeos donec conubia etiam viverra. Torquent aliquam vehicula semper justo consectetur. Fermentum magnis maecenas porta et netus purus. Fermentum mi sodales lorem faucibus inceptos semper habitasse penatibus. Nullam taciti aliquam vulputate lacinia montes porttitor dictum. Donec curabitur ultrices suscipit sagittis platea duis sapien.</p>
+        <div class="grid">
+          <figure>
+            <img src="https://picsum.photos/400/300" alt="Imagen 1 de prueba de picsum photos">
+          </figure>
+          <figure>
+            <img src="https://picsum.photos/500/300" alt="Imagen 2 de prueba de picsum photos">
+          </figure>
+          <figure>
+            <img src="https://picsum.photos/600/400" alt="Imagen 3 de prueba de picsum photos">
+          </figure>
+        </div>
       </section>
       <section>
-        <h3>Barra de Accesibilidad - JavaScript</h3>
-        <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Himenaeos sit pharetra justo tempus potenti praesent. Et sed pretium dis tincidunt volutpat augue primis. Mattis class class himenaeos donec conubia etiam viverra. Torquent aliquam vehicula semper justo consectetur. Fermentum magnis maecenas porta et netus purus. Fermentum mi sodales lorem faucibus inceptos semper habitasse penatibus. Nullam taciti aliquam vulputate lacinia montes porttitor dictum. Donec curabitur ultrices suscipit sagittis platea duis sapien.</p>
+        <h3>Formularios</h3>
+        <form>
+          <div class="item-form">
+            <label for="inputName">Nombre</label>
+            <input type="text" id="inputName">
+          </div>
+          <div class="item-form">
+            <label for="inputLastName">Apellido</label>
+            <input type="text" id="inputLastName">
+          </div>
+          <div class="item-form">
+            <label for="inputEmail">
+              <input type="email" id="inputEmail" placeholder="Ingrese su correo electronico">
+            </label>
+          </div>
+          <div class="item-form">
+            <label for="inputPassword">
+              <input type="password" id="inputPassword" placeholder="Ingrese su contraseña">
+            </label>
+          </div>
+        </form>
       </section>
   
     </main>
-    <footer></footer>
+    <footer>
+      <p>© 2024 Luis Miguel Castro Curequia.</p>
+      <div>
+        <a href="https://www.linkedin.com/in/luismiguelcc/" target="_blank" title="Ingresar al Linkedin de Miguel Castro">Linkedin</a>
+        <a href="https://github.com/LuisC73" target="_blank" title="Ingresar al Github de Miguel Castro">Github</a>
+      </div>
+    </footer>
   </div>
   
   <div id="screen-reader"></div>
