@@ -1,0 +1,198 @@
+/* Diferentes variables para el funcionamiento de la barra de accesilidad, en este lugar podras encontrar el color tanto de la fuente como de los iconos, el tamaño de la barra y sus diferentes colores, entre mas propiedades que podras editar a tu gusto */
+:root {
+  --primary-color: #31539e;
+  --secondary-color: #ffffff;
+  --tertiary-color: #333;
+}
+
+.screen-reader {
+  height: 20px;
+  position: fixed;
+  right: 10px;
+  bottom: calc(100vh - 25vh);
+  display: grid;
+  grid-template-columns: 60px 220px;
+  z-index: 999;
+}
+
+.screen-reader * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.screen-reader__image-container {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px 0 0 8px;
+  background-color: var(--primary-color);
+  cursor: pointer;
+}
+
+.screen-reader__image {
+  width: 30px;
+  transition: all 0.6s ease-in;
+  pointer-events: none;
+}
+
+.screen-reader__image-container:hover > .screen-reader__image {
+  transform: rotate(360deg);
+}
+
+.screen-reader__content {
+  width: 100%;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 10px;
+  border: 1px solid var(--primary-color);
+  background: var(--secondary-color);
+  border-radius: 0px 8px 8px 8px;
+}
+
+.screen-reader__title {
+  margin: 0;
+  font-size: 1rem;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.screen-reader__ul {
+  display: flex;
+  flex-direction: column;
+  row-gap: 11px;
+  padding: 0;
+  margin: 0;
+}
+
+.screen-reader__li {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+  font-size: 0.8rem;
+  font-family: 'Work Sans', sans-serif;
+  color: var(--tertiary-color);
+  transition: all 0.2s ease-in;
+  cursor: pointer;
+}
+
+.screen-reader__a {
+  color: var(--tertiary-color);
+}
+
+.screen-reader__li:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
+.grey-scale {
+  filter: grayscale(1);
+}
+
+.high-contrast {
+  filter: invert(100%);
+}
+
+.high-contrast-bg {
+  background: #000;
+}
+
+
+@font-face {
+  font-family: "OpenDyslexic";
+  src: url("/src/assets/fonts/OpenDyslexic-Regular.otf");
+}
+
+.font-dyslexic {
+  font-family: 'OpenDyslexic', sans-serif;
+}
+
+/* Cursor grande */
+.big-cursor {
+  cursor: url('/src/assets/icons/bigcursor.svg'), auto !important;
+}
+
+.big-cursor a,
+.big-cursor input,
+.big-cursor button {
+  cursor: url('/Style Library/ScreenReaderV3/Assets/images/cursorPointer.svg'), auto !important;
+}
+
+/* Resaltar enlaces */
+.highlight-links {
+  text-decoration: underline !important;
+}
+
+@font-face {
+  font-family: 'govco-font';
+  src: url('/src/assets/fonts/govco-font-icons.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Iconos */
+.screen-reader__span {
+  margin-right: 10px;
+  font-size: 13px;
+  font-family: 'govco-font';
+  color: var(--primary-color);
+  pointer-events: none;
+}
+
+.screen-reader__span--narrator-play:before {
+  content: '\ea94';
+}
+
+.screen-reader__span--narrator-stop:before {
+  content: '\eb37';
+}
+
+.screen-reader__span--increase-text:before {
+  content: '\eae0';
+}
+
+.screen-reader__span--decrease-text:before {
+  content: '\eadf';
+}
+
+.screen-reader__span--increse-spacing:before {
+  content: '\ec29';
+}
+
+.screen-reader__span--decrease-spacing:before {
+  content: '\ec2a';
+}
+
+.screen-reader__span--grey-scale:before {
+  content: '\e83d';
+}
+
+.screen-reader__span--contrast:before {
+  content: '\e803';
+}
+
+.screen-reader__span--dyslexic:before {
+  content: '\e96d';
+}
+
+.screen-reader__span--cursor:before {
+  content: '\ec44';
+}
+
+.screen-reader__span--link:before {
+  content: '\ea14';
+}
+
+.screen-reader__span--reset:before {
+  content: '\eb9b';
+}
+
+.screen-reader__span--relay-centre:before {
+  content: '\e9b6';
+}
