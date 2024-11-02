@@ -27,12 +27,13 @@
   box-sizing: border-box;
 }
 
-.screen-reader__image-container {
+.screen-reader__toggle-button {
   width: 100%;
   height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
+  border: none;
   border-radius: 8px 0 0 8px;
   background-color: var(--primary-color);
   cursor: pointer;

@@ -150,7 +150,7 @@ const resetAllSettings = () => {
 
 const handleUserAction = (actionId) => {
   const actionHandlers = Object.freeze({
-    'toggle-bar': toggleScreenReaderBar,
+    'toggle-button': toggleScreenReaderBar,
     'narrator': handleSpeechUtterance,
     'increase_text': () => adjustFontSize('increase'),
     'decrease_text': () => adjustFontSize('decrease'),
@@ -181,7 +181,7 @@ const createElement = (tag, classes = [], attributes = {}, textContent = '') => 
 const createAccessibilityMenu = (container, options) => {
   container.classList.add('screen-reader');
 
-  const imageContainer = createElement('div', ['screen-reader__image-container'], { id: 'toggle-bar' });
+  const imageContainer = createElement('button', ['screen-reader__toggle-button'], { id: 'toggle-button' });
   const logoImage = createElement('img', ['screen-reader__image'], {
     src: `${assetsDirectory}/icons/logo.svg`,
     alt: 'Botón para abrir barra de accesibilidad'
