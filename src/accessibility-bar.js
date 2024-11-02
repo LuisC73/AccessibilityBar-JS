@@ -1,10 +1,11 @@
 "use strict";
-import { CONTENT_ES, CONTENT_EN } from "./src/options/index.js";
+import './styles/accessibility-bar.css';
+import logo from './icons/logo.svg';
+import { CONTENT_ES, CONTENT_EN } from "./options/index.js";
 
-function createScreenReader(container, config = {}) {
-  const ASSETS_DIRECTORY = new URL('./src/assets', import.meta.url).pathname;
+function createAccessibilityBar(container, config = {}) {
   const DEFAULT_LANGUAGE = 'es';
-  const rootElement = document.getElementById('root');
+  const rootElement = document.getElementById('app');
   const bodyElement = document.body;
   let isNarratorEnabled = false;
 
@@ -184,12 +185,12 @@ function createScreenReader(container, config = {}) {
     return element;
   };
 
-  const createAccessibilityMenu = () => {
+  const createAccessibilityDesign = () => {
     container.classList.add('screen-reader');
 
     const imageContainer = createElement('button', ['screen-reader__toggle-button'], { id: 'toggle-button' });
     const logoImage = createElement('img', ['screen-reader__image'], {
-      src: `${ASSETS_DIRECTORY}/icons/logo.svg`,
+      src: logo,
       alt: appConfig?.content?.image_alt
     });
 
@@ -232,7 +233,7 @@ function createScreenReader(container, config = {}) {
   };
 
   document.addEventListener('DOMContentLoaded', () => {
-    createAccessibilityMenu();
+    createAccessibilityDesign();
     initializeSpeechUtterance();
     container.addEventListener('click', (e) => handleUserAction(e.target.id));
     container.addEventListener('keypress', (e) => e.key === 'enter' && handleUserAction(e.target.id));
@@ -240,5 +241,5 @@ function createScreenReader(container, config = {}) {
 }
 
 export {
-  createScreenReader
+  createAccessibilityBar
 }

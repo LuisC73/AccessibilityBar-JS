@@ -1,4 +1,3 @@
-/* Diferentes variables para el funcionamiento de la barra de accesilidad, en este lugar podras encontrar el color tanto de la fuente como de los iconos, el tamaño de la barra y sus diferentes colores, entre mas propiedades que podras editar a tu gusto */
 :root {
   --primary-color: #31539e;
   --secondary-color: #ffffff;
@@ -136,7 +135,7 @@
 
 @font-face {
   font-family: 'OpenDyslexic';
-  src: url('/src/assets/fonts/OpenDyslexic-Regular.otf');
+  src: url('../fonts/OpenDyslexic-Regular.otf'); 
 }
 
 .font-dyslexic {
@@ -145,13 +144,13 @@
 
 /* Cursor grande */
 .big-cursor {
-  cursor: url('/src/assets/icons/bigcursor.svg'), auto !important;
+  cursor: url('../icons/bigcursor.svg'), auto !important;
 }
 
 .big-cursor a,
 .big-cursor input,
 .big-cursor button {
-  cursor: url('/src/assets/icons/cursorPointer.svg'), auto !important;
+  cursor: url('../icons/cursorPointer.svg'), auto !important;
 }
 
 /* Resaltar enlaces */
@@ -162,7 +161,7 @@
 
 @font-face {
   font-family: 'govco-font';
-  src: url('/src/assets/fonts/govco-font-icons.ttf') format('truetype');
+  src: url('../fonts/govco-font-icons.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
