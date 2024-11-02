@@ -1,7 +1,7 @@
 "use strict";
 import { options } from "./options/index.js";
 
-const assetsDirectory = '/src/assets/';
+const assetsDirectory = '/public/';
 const rootElement = document.getElementById('root');
 const screenReaderElement = document.getElementById("screen-reader");
 const bodyElement = document.querySelector('body');
