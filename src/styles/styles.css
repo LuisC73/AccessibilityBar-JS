@@ -84,11 +84,14 @@
 .screen-reader__li {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
   list-style: none;
 }
 
 .screen-reader__button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   border: none;
   background: none;
   font-size: 0.8rem;
@@ -96,6 +99,13 @@
   color: var(--tertiary-color);
   transition: all 0.2s ease-in;
   cursor: pointer;
+}
+
+.screen-reader__span {
+  font-size: 0.9rem;
+  font-family: 'govco-font';
+  color: var(--primary-color);
+  pointer-events: none;
 }
 
 .screen-reader__a {
@@ -156,14 +166,6 @@
 }
 
 /* Iconos */
-.screen-reader__span {
-  margin-right: 10px;
-  font-size: 13px;
-  font-family: 'govco-font';
-  color: var(--primary-color);
-  pointer-events: none;
-}
-
 .screen-reader__span--narrator-play:before {
   content: '\ea94';
 }

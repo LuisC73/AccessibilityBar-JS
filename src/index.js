@@ -45,6 +45,7 @@ const handleSpeechUtterance = (action = 'create') => {
   const speech = new SpeechSynthesisUtterance();
   isNarratorEnabled = action === 'reset' ? false : !isNarratorEnabled;
   sessionStorage.setItem("isNarratorEnabled", isNarratorEnabled);
+  const itemMenu = document.querySelector('.screen-reader__span--narrator-play');
 
   if (isNarratorEnabled) {
     speech.lang = "es-ES";
@@ -55,6 +56,7 @@ const handleSpeechUtterance = (action = 'create') => {
 
     bodyElement.addEventListener(eventType, handleSpeech);
     bodyElement.addEventListener("mouseout", stopSpeech);
+    itemMenu.classList.add('screen-reader__span--narrator-stop')
 
     function handleSpeech(event) {
       const textToSpeak = getTextContent(event);
@@ -74,6 +76,7 @@ const handleSpeechUtterance = (action = 'create') => {
     bodyElement.removeEventListener("click", handleSpeechUtterance.handleSpeech);
     bodyElement.removeEventListener("mouseover", handleSpeechUtterance.handleSpeech);
     bodyElement.removeEventListener("mouseout", handleSpeechUtterance.stopSpeech);
+    itemMenu.classList.remove('screen-reader__span--narrator-stop')
     speechSynthesis.cancel();
   }
 };
@@ -100,10 +103,11 @@ const adjustLetterSpacing = (action) => {
   const rootElement = document.documentElement;
   const currentLetterSpacing = parseFloat(getComputedStyle(rootElement).letterSpacing) || 0;
 
-  if (action === 'increase') {
+  if (action === 'increase' && currentLetterSpacing <= 3.5) {
     rootElement.style.letterSpacing = `${(currentLetterSpacing + 0.5).toFixed(2)}px`;
-  } else if (action === 'decrease') {
+  } else if (action === 'decrease' && currentLetterSpacing >= -1.5) {
     rootElement.style.letterSpacing = `${(currentLetterSpacing - 0.5).toFixed(2)}px`;
+    console.log(currentLetterSpacing);
   } else if (action === 'reset') {
     rootElement.style.letterSpacing = '';
   }
