@@ -47,6 +47,14 @@
   text-wrap: balance;
 }
 
+#root .h2-min {
+ font-size: 1.17em; 
+}
+
+#root a {
+  color: #000B58;
+}
+
 #root ul {
   display: flex;
   flex-direction: column;
