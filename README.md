@@ -1,10 +1,11 @@
-# ScreenReader - JavaScript
+# AccessibilityBar - JavaScript
 
 ## Tecnologías
 
 - HTML
 - CSS
 - JavaScript
+- Vite
 
 ## Acerca del proyecto
 
@@ -30,11 +31,31 @@ Este componente ha sido desarrollado con un diseño atractivo y fácil de usar, 
 
 ```bash
 # Clonar o descargar el repositorio
-$ git clone https://github.com/LuisC73/ScreenReader-JS.git
+$ git clone https://github.com/LuisC73/AccessibilityBar-JS.git
 
-# Añadir carpeta src a tu proyecto.
+# Instalar dependencias
+npm install
 
-# Crear contenedor con el id screen-reader.
+# Generar build
+npm build
+
+# Copiar assets a tu proyecto
+```
+
+```html
+<!-- Crear contenedor -->
+<div id="accessibility-bar"></div>
+```
+
+```js
+// Importar componente
+
+import { createAccessibilityBar } from "path/accessibility-bar.js";
+
+const container = document.getElementById('accessibility-bar');
+const config = { language: 'es' };
+
+createAccessibilityBar(container, config);
 ```
 
 ## Autor

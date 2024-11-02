@@ -1,5 +1,5 @@
 {
-  "name": "screen-reader",
+  "name": "accessibilitybar-js",
   "private": true,
   "version": "0.0.1",
   "type": "module",
@@ -10,18 +10,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/LuisC73/ScreenReader-JS"
+    "url": "https://github.com/LuisC73/AccessibilityBar-JS.git"
   },
   "keywords": [
     "ScreenReader",
-    "JavaScript"
+    "JavaScript",
+    "Accessibility Bar"
   ],
-  "author": "Miguel Castro",
+  "author": "Luis Miguel Castro",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/LuisC73/ScreenReader-JS/issues"
+    "url": "https://github.com/LuisC73/AccessibilityBar-JS.git/issues"
   },
-  "homepage": "https://github.com/LuisC73/ScreenReader-JS#readme",
+  "homepage": "https://github.com/LuisC73/AccessibilityBar-JS.git#readme",
   "devDependencies": {
     "vite": "^5.4.10"
   }
