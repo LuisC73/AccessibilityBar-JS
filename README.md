@@ -126,7 +126,7 @@ Las contribuciones son bienvenidas. Si deseas mejorar este componente, por favor
 
 ## Licencia
 
-Este proyecto está licenciado bajo la Licencia MIT.
+Este proyecto está bajo la Licencia MIT. [Ver el archivo LICENSE](./LICENSE) para más detalles.
 
 ## Autor
 
