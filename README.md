@@ -1,6 +1,6 @@
 # ScreenReader - JavaScript
 
-## Tecnologias
+## Tecnologías
 
 - HTML
 - CSS
