@@ -54,6 +54,7 @@ const handleClickOpenBar = () => {
 const speechUtterance = (action = 'create') => {
   const speak = new SpeechSynthesisUtterance();
   isNarratorActive = action === 'reset' ? false : !isNarratorActive;
+  sessionStorage.setItem("isNarratorActive", isNarratorActive);
 
   if (isNarratorActive) {
     speak.lang = "es-ES";
@@ -91,6 +92,11 @@ const speechUtterance = (action = 'create') => {
     speechSynthesis.cancel();
   }
 };
+
+const detectSpeechUtterance = () => {
+  const isActive = sessionStorage.getItem("isNarratorActive") === 'true';
+  if (isActive) speechUtterance();
+}
 
 const changeFontSize = (action) => {
   const root = document.documentElement;
@@ -222,7 +228,9 @@ const createDesign = (container, options) => {
   container.append(imageContainer, contentContainer);
 };
 
-createDesign(screenReader, options);
-
-screenReader.addEventListener('click', (e) => handleClickAction(e.target.id));
-screenReader.addEventListener('keypress', (e) => e.key === 'enter' && handleClickAction(e.target.id));
+document.addEventListener('DOMContentLoaded', () => {
+  createDesign(screenReader, options);
+  detectSpeechUtterance();
+  screenReader.addEventListener('click', (e) => handleClickAction(e.target.id));
+  screenReader.addEventListener('keypress', (e) => e.key === 'enter' && handleClickAction(e.target.id));
+})
