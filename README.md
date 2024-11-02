@@ -26,7 +26,7 @@
 
 Este componente ha sido desarrollado con un diseño atractivo y fácil de usar, garantizando una experiencia de usuario mejorada en el sitio web. Al integrar esta barra de accesibilidad, se contribuye a crear un entorno digital más inclusivo para todos los usuarios.
 
-## Como usarlo
+## Como utilizarlo
 
 ```bash
 # Clonar o descargar el repositorio
