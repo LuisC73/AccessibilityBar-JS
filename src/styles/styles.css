@@ -51,7 +51,6 @@
 .screen-reader__audio {
   opacity: 0;
   pointer-events: none;
-
 }
 
 .screen-reader__content {
@@ -123,10 +122,9 @@
   background: #000;
 }
 
-
 @font-face {
-  font-family: "OpenDyslexic";
-  src: url("/src/assets/fonts/OpenDyslexic-Regular.otf");
+  font-family: 'OpenDyslexic';
+  src: url('/src/assets/fonts/OpenDyslexic-Regular.otf');
 }
 
 .font-dyslexic {
@@ -141,7 +139,7 @@
 .big-cursor a,
 .big-cursor input,
 .big-cursor button {
-  cursor: url('/Style Library/ScreenReaderV3/Assets/images/cursorPointer.svg'), auto !important;
+  cursor: url('/src/assets/icons/cursorPointer.svg'), auto !important;
 }
 
 /* Resaltar enlaces */

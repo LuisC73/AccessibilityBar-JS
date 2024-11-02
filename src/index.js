@@ -1,176 +1,166 @@
 "use strict";
 import { options } from "./options/index.js";
 
-const assetsDir = '/src/assets/';
-const rootContainer = document.getElementById('root');
-const screenReader = document.getElementById("screen-reader");
+const assetsDirectory = '/src/assets/';
+const rootElement = document.getElementById('root');
+const screenReaderElement = document.getElementById("screen-reader");
 const bodyElement = document.querySelector('body');
-let isNarratorActive = false;
+let isNarratorEnabled = false;
 
-const returnTag = (e) => {
-  let tag = e.srcElement ? e.srcElement.tagName : e.target.type;
-  return tag;
-};
+const getElementTag = (e) => e.target.tagName || e.srcElement.tagName;
 
-const returnText = (e) => {
-  if (
-    returnTag(e) == "P" ||
-    returnTag(e) == "H1" ||
-    returnTag(e) == "H2" ||
-    returnTag(e) == "H3" ||
-    returnTag(e) == "H4" ||
-    returnTag(e) == "H5" ||
-    returnTag(e) == "H6" ||
-    returnTag(e) == "A" ||
-    returnTag(e) == "LI" ||
-    returnTag(e) == "SPAN" ||
-    returnTag(e) == "STRONG" ||
-    returnTag(e) == "BUTTON" ||
-    returnTag(e) == "SELECT" ||
-    returnTag(e) == "LABEL" ||
-    returnTag(e) == "TD" ||
-    returnTag(e) == "B"
-  ) {
+const getTextContent = (e) => {
+  const relevantTagsSet = new Set(['P', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'A', 'LI', 'SPAN', 'STRONG', 'BUTTON', 'SELECT', 'LABEL', 'TD', 'B']);
+
+  const tagName = getElementTag(e);
+
+  if (relevantTagsSet.has(tagName)) {
     return e.target.textContent;
-  } else if (returnTag(e) == "DIV" && e.target.textContent.length <= 100) {
-    return e.target.textContent;
-  } else if (returnTag(e) == "IMG" && e.target.getAttribute("alt")) {
-    return e.target.getAttribute("alt");
-  } else if (returnTag(e) == "INPUT" && e.target.getAttribute("value")) {
-    return e.target.getAttribute("value");
-  } else if (returnTag(e) == "A" && e.target.getAttribute("aria-label")) {
-    return e.target.getAttribute("aria-label");
-  } else if (returnTag(e) == "INPUT" && e.target.getAttribute("placeholder")) {
-    return e.target.getAttribute("placeholder");
-  } else {
-    return "";
   }
+
+  if (tagName === "DIV" && e.target.textContent.length <= 100) {
+    return e.target.textContent;
+  }
+
+  if (tagName === "IMG" && e.target.alt) {
+    return e.target.alt;
+  }
+
+  if (tagName === "INPUT") {
+    return e.target.value || e.target.placeholder || '';
+  }
+
+  if (tagName === "A" && e.target.getAttribute("aria-label")) {
+    return e.target.getAttribute("aria-label");
+  }
+
+  return "";
 };
 
-const handleClickOpenBar = () => {
-  screenReader.classList.toggle('active');
+const toggleScreenReaderBar = () => {
+  screenReaderElement.classList.toggle('active');
 };
 
-const speechUtterance = (action = 'create') => {
-  const speak = new SpeechSynthesisUtterance();
-  isNarratorActive = action === 'reset' ? false : !isNarratorActive;
-  sessionStorage.setItem("isNarratorActive", isNarratorActive);
+const handleSpeechUtterance = (action = 'create') => {
+  const speech = new SpeechSynthesisUtterance();
+  isNarratorEnabled = action === 'reset' ? false : !isNarratorEnabled;
+  sessionStorage.setItem("isNarratorEnabled", isNarratorEnabled);
 
-  if (isNarratorActive) {
-    speak.lang = "es-ES";
-    speak.rate = 1.3;
-    let speakerOnOff = true;
+  if (isNarratorEnabled) {
+    speech.lang = "es-ES";
+    speech.rate = 1.3;
     let mediaQuery = window.matchMedia("(max-width: 800px)");
 
-    if (mediaQuery.matches) {
-      bodyElement.addEventListener("click", speakHandler);
-      bodyElement.addEventListener("mouseout", cancelSpeech);
-    } else {
-      bodyElement.addEventListener("mouseover", speakHandler);
-      bodyElement.addEventListener("mouseout", cancelSpeech);
-    }
+    const eventType = mediaQuery.matches ? "click" : "mouseover";
 
-    function speakHandler(e) {
-      if (returnText(e) != "") {
-        speak.text = returnText(e);
-        if (speakerOnOff) {
-          speechSynthesis.speak(speak);
-        }
+    bodyElement.addEventListener(eventType, handleSpeech);
+    bodyElement.addEventListener("mouseout", stopSpeech);
+
+    function handleSpeech(event) {
+      const textToSpeak = getTextContent(event);
+      if (textToSpeak !== "") {
+        speech.text = textToSpeak;
+        speechSynthesis.speak(speech);
       }
     }
 
-    function cancelSpeech() {
+    function stopSpeech() {
       speechSynthesis.cancel();
     }
 
-    speechUtterance.speakHandler = speakHandler;
-    speechUtterance.cancelSpeech = cancelSpeech;
+    handleSpeechUtterance.handleSpeech = handleSpeech;
+    handleSpeechUtterance.stopSpeech = stopSpeech;
   } else {
-    bodyElement.removeEventListener("click", speechUtterance.speakHandler);
-    bodyElement.removeEventListener("mouseover", speechUtterance.speakHandler);
-    bodyElement.removeEventListener("mouseout", speechUtterance.cancelSpeech);
+    bodyElement.removeEventListener("click", handleSpeechUtterance.handleSpeech);
+    bodyElement.removeEventListener("mouseover", handleSpeechUtterance.handleSpeech);
+    bodyElement.removeEventListener("mouseout", handleSpeechUtterance.stopSpeech);
     speechSynthesis.cancel();
   }
 };
 
-const detectSpeechUtterance = () => {
-  const isActive = sessionStorage.getItem("isNarratorActive") === 'true';
-  if (isActive) speechUtterance();
-}
+const initializeSpeechUtterance = () => {
+  const isActive = sessionStorage.getItem("isNarratorEnabled") === 'true';
+  if (isActive) handleSpeechUtterance();
+};
 
-const changeFontSize = (action) => {
-  const root = document.documentElement;
-  const currentFontSize = parseFloat(getComputedStyle(root).fontSize);
+const adjustFontSize = (action) => {
+  const rootElement = document.documentElement;
+  const currentFontSize = parseFloat(getComputedStyle(rootElement).fontSize);
 
   if (action === 'increase' && currentFontSize <= 22) {
-    root.style.fontSize = `${currentFontSize * 1.1}px`;
+    rootElement.style.fontSize = `${(currentFontSize * 1.1).toFixed(2)}px`;
   } else if (action === 'decrease' && currentFontSize >= 10) {
-    root.style.fontSize = `${currentFontSize * 0.9}px`;
-    console.log(currentFontSize);
+    rootElement.style.fontSize = `${(currentFontSize * 0.9).toFixed(2)}px`;
   } else if (action === 'reset') {
-    root.style.fontSize = '';
+    rootElement.style.fontSize = '';
   }
 };
 
-const changeLetterSpacing = (action) => {
-  const root = document.documentElement;
-  const currentLetterSpacing = parseFloat(getComputedStyle(root).letterSpacing) || 0;
+const adjustLetterSpacing = (action) => {
+  const rootElement = document.documentElement;
+  const currentLetterSpacing = parseFloat(getComputedStyle(rootElement).letterSpacing) || 0;
 
   if (action === 'increase') {
-    root.style.letterSpacing = `${currentLetterSpacing + 0.5}px`;
+    rootElement.style.letterSpacing = `${(currentLetterSpacing + 0.5).toFixed(2)}px`;
   } else if (action === 'decrease') {
-    root.style.letterSpacing = `${currentLetterSpacing - 0.5}px`;
+    rootElement.style.letterSpacing = `${(currentLetterSpacing - 0.5).toFixed(2)}px`;
   } else if (action === 'reset') {
-    root.style.letterSpacing = '';
+    rootElement.style.letterSpacing = '';
   }
 };
 
-const applyGreyTone = () => {
-  rootContainer.classList.toggle('grey-scale');
+const toggleGreyScale = () => {
+  rootElement.classList.toggle('grey-scale');
 };
 
-const applyContrastTone = () => {
-  rootContainer.classList.toggle('high-contrast');
-  bodyElement.classList.toggle('high-contrast-bg')
+const toggleHighContrast = () => {
+  rootElement.classList.toggle('high-contrast');
+  bodyElement.classList.toggle('high-contrast-bg');
 };
 
-const applyDyslexicFont = () => {
-  rootContainer.classList.toggle('font-dyslexic')
+const toggleDyslexicFont = () => {
+  rootElement.classList.toggle('font-dyslexic');
 };
 
-const applyBigCursor = () => {
-  rootContainer.classList.toggle('big-cursor');
+const toggleBigCursor = () => {
+  rootElement.classList.toggle('big-cursor');
 };
 
-const applyHighlightLink = () => {
-  rootContainer.classList.toggle('highlight-links');
+const toggleHighlightLinks = () => {
+  rootElement.classList.toggle('highlight-links');
 };
 
-const restartState = () => {
-  speechUtterance('reset');
-  changeFontSize('reset');
-  changeLetterSpacing('reset');
-  rootContainer.classList.remove('grey-scale', 'high-contrast', 'font-dyslexic', 'big-cursor', 'highlight-links');
-  bodyElement.classList.remove('high-contrast-bg')
+const resetAllSettings = () => {
+  handleSpeechUtterance('reset');
+  adjustFontSize('reset');
+  adjustLetterSpacing('reset');
+  rootElement.classList.remove(
+    'grey-scale',
+    'high-contrast',
+    'font-dyslexic',
+    'big-cursor',
+    'highlight-links'
+  );
+  bodyElement.classList.remove('high-contrast-bg');
 };
 
-const handleClickAction = (id) => {
-  const actions = Object.freeze({
-    'toggle-bar': handleClickOpenBar,
-    'narrator': speechUtterance,
-    'increase_text': () => changeFontSize('increase'),
-    'decrease_text': () => changeFontSize('decrease'),
-    'increse_spacing_text': () => changeLetterSpacing('increase'),
-    'decrease_spacing_text': () => changeLetterSpacing('decrease'),
-    'grey_scale': applyGreyTone,
-    'high_contrast': applyContrastTone,
-    'dyslexic__font': applyDyslexicFont,
-    'big_cursor': applyBigCursor,
-    'highlight_links': applyHighlightLink,
-    'reset_all': restartState
+const handleUserAction = (actionId) => {
+  const actionHandlers = Object.freeze({
+    'toggle-bar': toggleScreenReaderBar,
+    'narrator': handleSpeechUtterance,
+    'increase_text': () => adjustFontSize('increase'),
+    'decrease_text': () => adjustFontSize('decrease'),
+    'increase_spacing_text': () => adjustLetterSpacing('increase'),
+    'decrease_spacing_text': () => adjustLetterSpacing('decrease'),
+    'grey_scale': toggleGreyScale,
+    'high_contrast': toggleHighContrast,
+    'dyslexic_font': toggleDyslexicFont,
+    'big_cursor': toggleBigCursor,
+    'highlight_links': toggleHighlightLinks,
+    'reset_all': resetAllSettings
   });
 
-  const action = actions[id];
+  const action = actionHandlers[actionId];
   if (action) action();
 };
 
@@ -184,53 +174,56 @@ const createElement = (tag, classes = [], attributes = {}, textContent = '') => 
   return element;
 };
 
-const createDesign = (container, options) => {
+const createAccessibilityMenu = (container, options) => {
   container.classList.add('screen-reader');
+
   const imageContainer = createElement('div', ['screen-reader__image-container'], { id: 'toggle-bar' });
-  const image = createElement('img', ['screen-reader__image'], {
-    src: `${assetsDir}/icons/logo.svg`,
+  const logoImage = createElement('img', ['screen-reader__image'], {
+    src: `${assetsDirectory}/icons/logo.svg`,
     alt: 'Botón para abrir barra de accesibilidad'
   });
 
   const contentContainer = createElement('div', ['screen-reader__content']);
-  const title = createElement('h3', ['screen-reader__title'], {}, 'Accesibilidad');
-  const optionsContainer = createElement('ul', ['screen-reader__ul']);
-  const fragmentOptions = document.createDocumentFragment();
+  const titleElement = createElement('h3', ['screen-reader__title'], {}, 'Accesibilidad');
+  const optionsList = createElement('ul', ['screen-reader__ul']);
+  const fragment = document.createDocumentFragment();
 
   if (options?.length > 0) {
-    const optionLink = options.find(option => option?.id === 'relay_centre');
-    const newOptions = options.filter(option => option?.id !== 'relay_centre');
+    const relayCentreOption = options.find(option => option?.id === 'relay_centre');
+    const otherOptions = options.filter(option => option?.id !== 'relay_centre');
 
-    newOptions.forEach(option => {
-      const liElement = createElement('li', ['screen-reader__li']);
+    otherOptions.forEach(option => {
+      const listItem = createElement('li', ['screen-reader__li']);
       const buttonElement = createElement('button', ['screen-reader__button'], { id: option?.id });
-      const spanElement = createElement('span', ['screen-reader__span', `screen-reader__span--${option?.icon}`]);
-      buttonElement.append(spanElement, option?.label);
-      liElement.appendChild(buttonElement);
-      fragmentOptions.appendChild(liElement);
+      const iconSpan = createElement('span', ['screen-reader__span', `screen-reader__span--${option?.icon}`]);
+      buttonElement.append(iconSpan, option?.label);
+      listItem.appendChild(buttonElement);
+      fragment.appendChild(listItem);
     });
 
-    const liElementLink = createElement('li', ['screen-reader__li'], { id: optionLink?.id });
-    const spanElementLink = createElement('span', ['screen-reader__span', `screen-reader__span--${optionLink?.icon}`]);
-    const linkElement = createElement('a', ['screen-reader__a'], {
-      href: 'https://centroderelevo.gov.co/632/w3-channel.html',
-      title: 'Ingresar a la página oficial de centro de relevo',
-      target: '_blank'
-    }, optionLink?.label);
+    if (relayCentreOption) {
+      const relayCentreItem = createElement('li', ['screen-reader__li'], { id: relayCentreOption?.id });
+      const relayCentreIcon = createElement('span', ['screen-reader__span', `screen-reader__span--${relayCentreOption?.icon}`]);
+      const relayCentreLink = createElement('a', ['screen-reader__a'], {
+        href: 'https://centroderelevo.gov.co/632/w3-channel.html',
+        title: 'Ingresar a la página oficial de centro de relevo',
+        target: '_blank'
+      }, relayCentreOption?.label);
 
-    liElementLink.append(spanElementLink, linkElement);
-    fragmentOptions.appendChild(liElementLink);
+      relayCentreItem.append(relayCentreIcon, relayCentreLink);
+      fragment.appendChild(relayCentreItem);
+    }
   }
 
-  optionsContainer.appendChild(fragmentOptions);
-  contentContainer.append(title, optionsContainer);
-  imageContainer.appendChild(image);
+  optionsList.appendChild(fragment);
+  contentContainer.append(titleElement, optionsList);
+  imageContainer.appendChild(logoImage);
   container.append(imageContainer, contentContainer);
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  createDesign(screenReader, options);
-  detectSpeechUtterance();
-  screenReader.addEventListener('click', (e) => handleClickAction(e.target.id));
-  screenReader.addEventListener('keypress', (e) => e.key === 'enter' && handleClickAction(e.target.id));
+  createAccessibilityMenu(screenReaderElement, options);
+  initializeSpeechUtterance();
+  screenReaderElement.addEventListener('click', (e) => handleUserAction(e.target.id));
+  screenReaderElement.addEventListener('keypress', (e) => e.key === 'enter' && handleUserAction(e.target.id));
 })

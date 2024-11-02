@@ -15,7 +15,7 @@ const options = [
     icon: 'decrease-text',
   },
   {
-    id: 'increse_spacing_text',
+    id: 'increase_spacing_text',
     label: 'Aumentar espaciado',
     icon: 'increse-spacing',
   },
@@ -35,7 +35,7 @@ const options = [
     icon: 'contrast',
   },
   {
-    id: 'dyslexic__font',
+    id: 'dyslexic_font',
     label: 'Fuente dislexicos',
     icon: 'dyslexic',
   },
