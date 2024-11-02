@@ -1,5 +1,7 @@
 # AccessibilityBar - JavaScript
 
+![home-1](https://github.com/user-attachments/assets/11b03eb5-4548-42f6-889d-0c57187cd13e)
+
 ## Tecnologías
 
 - HTML
