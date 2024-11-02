@@ -136,7 +136,7 @@
 
 @font-face {
   font-family: 'OpenDyslexic';
-  src: url('/public/fonts/OpenDyslexic-Regular.otf');
+  src: url('/src/assets/fonts/OpenDyslexic-Regular.otf');
 }
 
 .font-dyslexic {
@@ -145,13 +145,13 @@
 
 /* Cursor grande */
 .big-cursor {
-  cursor: url('/public/icons/bigcursor.svg'), auto !important;
+  cursor: url('/src/assets/icons/bigcursor.svg'), auto !important;
 }
 
 .big-cursor a,
 .big-cursor input,
 .big-cursor button {
-  cursor: url('/public/icons/cursorPointer.svg'), auto !important;
+  cursor: url('/src/assets/icons/cursorPointer.svg'), auto !important;
 }
 
 /* Resaltar enlaces */
@@ -162,7 +162,7 @@
 
 @font-face {
   font-family: 'govco-font';
-  src: url('/public/fonts/govco-font-icons.ttf') format('truetype');
+  src: url('/src/assets/fonts/govco-font-icons.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
