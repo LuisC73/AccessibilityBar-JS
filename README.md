@@ -1,6 +1,6 @@
 # AccessibilityBar - JavaScript
 
-![home-1](https://github.com/user-attachments/assets/11b03eb5-4548-42f6-889d-0c57187cd13e)
+![cover](https://github.com/user-attachments/assets/aa48946a-603f-4b6c-9574-a1a1625bf1ac)
 
 ## Tecnologías
 
